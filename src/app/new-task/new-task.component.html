@@ -9,7 +9,6 @@
             <mat-label>Nombre de la tarea:</mat-label>
             <input matInput placeholder="Task #1">
         </mat-form-field>
-        <br>
         <mat-form-field class="example-form-field">
             <mat-label>Fecha límite</mat-label>
             <input matInput [matDatepicker]="datepicker">
@@ -22,7 +21,27 @@
               </mat-datepicker-actions>
             </mat-datepicker>
         </mat-form-field>
-
-
+        <br>
+        <section class="cont-add-people">
+            <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Persona</mat-card-title>
+                </mat-card-header>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Nombre de la persona:</mat-label>
+                    <input matInput placeholder="Ash Ketchum">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Edad de la persona:</mat-label>
+                    <input matInput placeholder="1">
+                </mat-form-field>
+                <mat-card-actions align="end">
+                    <button mat-button>Agregar persona</button>
+                  </mat-card-actions>
+            </mat-card>
+        </section>
     </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-flat-button color="primary" (click)="addTask()">Agregar</button>
 </div>

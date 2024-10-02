@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-task',
@@ -7,5 +8,13 @@ import { Component } from '@angular/core';
 })
 
 export class NewTaskComponent {
+  
+  constructor(
+    private fb: FormBuilder) {}
 
+
+
+  addTask() {
+    console.log("Add task");
+  }
 }
