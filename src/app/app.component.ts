@@ -1,5 +1,9 @@
 import {Component} from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl} from '@angular/forms';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
+import {NgIf} from '@angular/common';
+import {MatButtonModule} from '@angular/material/button';
+import { NewTaskComponent } from './new-task/new-task.component';
 
 @Component({
   selector: 'app-root',
@@ -64,4 +68,12 @@ export class AppComponent {
       ]
     }
   ]
+
+  constructor(public dialog: MatDialog) {}
+  
+  newTask() {
+    console.log("new task");
+    this.dialog.open(NewTaskComponent);
+  }
+
 }

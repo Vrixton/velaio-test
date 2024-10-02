@@ -6,16 +6,14 @@
 </mat-toolbar>
 
 <section class="cont-toolbar">
-
   <mat-form-field>
     <mat-label>Filtrar por:</mat-label>
     <mat-select [formControl]="toppings">
       <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-flat-button color="primary">Agregar tarea</button>
+  <button mat-flat-button color="primary" (click)="newTask()">Agregar tarea</button>
 </section>
-
 <section class="cont-tasks">
   <mat-card *ngFor="let task of tasks">
     <mat-card-header>

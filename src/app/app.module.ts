@@ -15,10 +15,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTreeModule } from '@angular/material/tree';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { NewTaskComponent } from './new-task/new-task.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NewTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +38,13 @@ import { MatTreeModule } from '@angular/material/tree';
     MatBadgeModule,
     FormsModule, 
     ReactiveFormsModule, 
+    MatInputModule,
     NgIf, 
     NgFor,
-    MatTreeModule
+    MatTreeModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]
