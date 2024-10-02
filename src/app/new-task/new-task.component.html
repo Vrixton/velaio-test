@@ -4,44 +4,59 @@
     </mat-toolbar-row>
   </mat-toolbar>
 <div class="cont-dialog">
-    <form action="">
-        <mat-form-field class="example-full-width">
-            <mat-label>Nombre de la tarea:</mat-label>
-            <input matInput placeholder="Task #1">
-        </mat-form-field>
-        <mat-form-field class="example-form-field">
-            <mat-label>Fecha límite</mat-label>
-            <input matInput [matDatepicker]="datepicker">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
-            <mat-datepicker #datepicker>
-              <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-              </mat-datepicker-actions>
-            </mat-datepicker>
-        </mat-form-field>
+    <form action="" [formGroup]="task" (ngSubmit)="addTask(task)">
+        <div class="d-flex justify-content-space-evenly">
+            <mat-form-field>
+                <mat-label>Nombre de la tarea:</mat-label>
+                <input formControlName="name" matInput placeholder="Task #1">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Fecha límite</mat-label>
+                <input formControlName="limitDate"  matInput [matDatepicker]="datepicker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker>
+                <mat-datepicker-actions>
+                    <button mat-button matDatepickerCancel>Cancel</button>
+                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                </mat-datepicker-actions>
+                </mat-datepicker>
+            </mat-form-field>
+        </div>
         <br>
+        <section>
+           <mat-card>
+                <mat-card-header>
+                    <mat-card-subtitle>Personas</mat-card-subtitle>
+                </mat-card-header>
+                <div class="">
+                    <ul>
+                        <li>persona 1 </li>
+                        <li>persona 2 </li>
+                        <li>persona 3 </li>
+                    </ul>
+                </div>
+            </mat-card>
+        </section>
         <section class="cont-add-people">
             <mat-card>
                 <mat-card-header>
-                  <mat-card-title>Persona</mat-card-title>
+                  <mat-card-subtitle>Persona</mat-card-subtitle>
                 </mat-card-header>
-                <mat-form-field class="example-full-width">
-                    <mat-label>Nombre de la persona:</mat-label>
-                    <input matInput placeholder="Ash Ketchum">
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <mat-label>Edad de la persona:</mat-label>
-                    <input matInput placeholder="1">
-                </mat-form-field>
-                <mat-card-actions align="end">
-                    <button mat-button>Agregar persona</button>
-                  </mat-card-actions>
+                <div class="d-flex justify-content-space-evenly">
+                    <mat-form-field>
+                        <mat-label>Nombre de la persona:</mat-label>
+                        <input matInput placeholder="Ash Ketchum">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Edad de la persona:</mat-label>
+                        <input type="number" matInput placeholder="1">
+                    </mat-form-field>
+                </div>
             </mat-card>
         </section>
     </form>
 </div>
 <div mat-dialog-actions>
-    <button mat-flat-button color="primary" (click)="addTask()">Agregar</button>
+    <button mat-flat-button color="primary" (click)="addTask(task)">Agregar</button>
 </div>
