@@ -5,5 +5,39 @@
     display: flex;
 }
 .justify-content-space-evenly {
-    justify-content: space-evenly;
+    justify-content: space-between;
+}
+.justify-content-end {
+    justify-content: end;
+}
+.padd-20 {
+    padding: 0 20px 0 20px;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+.m-1 {
+    margin: 1rem;
+}
+.bg-grey {
+    background-color: #f2f2f2;
+}
+.cont-persons {
+    max-height: 80px;
+    overflow: auto;
+    .table-persons {
+        width: calc(100% - 40px);
+        margin: 20px;
+        tr {
+            cursor: pointer;
+            transition: .3s;
+            th {
+                text-align: left;
+            }
+            &:hover {
+                background-color: #e3e3e3;
+            }
+        }
+    }
 }

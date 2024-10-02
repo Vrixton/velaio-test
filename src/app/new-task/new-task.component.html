@@ -4,59 +4,95 @@
     </mat-toolbar-row>
   </mat-toolbar>
 <div class="cont-dialog">
-    <form action="" [formGroup]="task" (ngSubmit)="addTask(task)">
+    <form action="" [formGroup]="task">
         <div class="d-flex justify-content-space-evenly">
             <mat-form-field>
                 <mat-label>Nombre de la tarea:</mat-label>
-                <input formControlName="name" matInput placeholder="Task #1">
+                <input formControlName="name" min-width="5" matInput placeholder="Tarea #1">
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Fecha límite</mat-label>
-                <input formControlName="limitDate"  matInput [matDatepicker]="datepicker">
+                <input formControlName="limitDate" matInput [matDatepicker]="datepicker">
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
                 <mat-datepicker #datepicker>
                 <mat-datepicker-actions>
-                    <button mat-button matDatepickerCancel>Cancel</button>
-                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                    <button mat-button matDatepickerCancel>Cancelar</button>
+                    <button mat-raised-button color="primary" matDatepickerApply>Aceptar</button>
                 </mat-datepicker-actions>
                 </mat-datepicker>
             </mat-form-field>
         </div>
         <br>
-        <section>
-           <mat-card>
+        <section *ngIf="task.value.person.length">
+           <mat-card class="bg-grey">
                 <mat-card-header>
                     <mat-card-subtitle>Personas</mat-card-subtitle>
                 </mat-card-header>
-                <div class="">
-                    <ul>
-                        <li>persona 1 </li>
-                        <li>persona 2 </li>
-                        <li>persona 3 </li>
-                    </ul>
+                <div class="cont-persons">
+                    <table class="table-persons">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Edad</th>
+                            <th># Habilidades</th>
+                            <th></th>
+                        </tr>
+                        <tr *ngFor="let person of task.value.person; let i = index">
+                            <td>{{ person.name }}</td>
+                            <td>{{ person.age }}</td>
+                            <td>{{ person.skills.length }}</td>
+                            <td>
+                                <button color="warn" mat-icon-button aria-label="Remove button" (click)="removePerson(i)">
+                                    <mat-icon>cancel</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </mat-card>
         </section>
-        <section class="cont-add-people">
-            <mat-card>
+        <section class="cont-add-people mt-1">
+            <mat-card class="bg-grey">
                 <mat-card-header>
-                  <mat-card-subtitle>Persona</mat-card-subtitle>
+                  <mat-card-subtitle>Nueva persona</mat-card-subtitle>
                 </mat-card-header>
-                <div class="d-flex justify-content-space-evenly">
-                    <mat-form-field>
-                        <mat-label>Nombre de la persona:</mat-label>
-                        <input matInput placeholder="Ash Ketchum">
+                    <div class="d-flex justify-content-space-evenly padd-20">
+                        <mat-form-field color="accent">
+                            <mat-label>Nombre de la persona:</mat-label>
+                            <input matInput min-width="5" formControlName="personName" placeholder="Ash Ketchum">
+                        </mat-form-field>
+                        <mat-form-field color="accent">
+                            <mat-label>Edad de la persona:</mat-label>
+                            <input type="number" min="18" formControlName="personAge" matInput placeholder="1">
+                            <mat-hint>(min 18)</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field class="padd-20" color="accent">
+                        <mat-label>Habilidades</mat-label>
+                        <mat-chip-grid #chipGrid aria-label="Enter skills">
+                        <mat-chip-row *ngFor="let skill of skills"
+                                        (removed)="remove(skill)"
+                                        [editable]="true"
+                                        (edited)="edit(skill, $event)"
+                                        [aria-description]="'press enter to edit ' + skill.name">
+                            {{skill.name}}
+                            <button matChipRemove [attr.aria-label]="'remove ' + skill.name">
+                            <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip-row>
+                        <input placeholder="Nueva habilidad..."
+                                [matChipInputFor]="chipGrid"
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="addOnBlur"
+                                (matChipInputTokenEnd)="add($event)"/>
+                        </mat-chip-grid>
+                        <mat-hint>(min 1 habilidad)</mat-hint>
                     </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Edad de la persona:</mat-label>
-                        <input type="number" matInput placeholder="1">
-                    </mat-form-field>
-                </div>
+                    <button mat-flat-button color="accent" class="m-1" [disabled]="!task.value.personName || !task.value.personAge || task.value.personAge < 18 || !skills.length" (click)="addPerson(task.value.personName, task.value.personAge)">Agregar persona</button>
             </mat-card>
         </section>
     </form>
 </div>
-<div mat-dialog-actions>
-    <button mat-flat-button color="primary" (click)="addTask(task)">Agregar</button>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-flat-button color="primary" [disabled]="!task.value.name || !task.value.limitDate || !task.value.person.length" (click)="addTask(task)">Crear tarea</button>
 </div>
