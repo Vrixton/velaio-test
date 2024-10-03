@@ -20,7 +20,6 @@ export class NewTaskComponent {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   skills: Skill[] = [];
-  durationInSeconds = 5;
 
   constructor(
     private fb: FormBuilder,
