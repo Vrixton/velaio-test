@@ -5,6 +5,7 @@ import { NewTaskComponent } from './new-task/new-task.component';
 import { TaskService } from './services/task/task.service';
 import { DatePipe } from '@angular/common';
 import { Timestamp } from '@angular/fire/firestore';  
+import { NotificationService } from './services/notification/notification.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,13 +22,11 @@ export class AppComponent implements OnInit {
   constructor(
     public dialog: MatDialog, 
     private _task: TaskService, 
-    private datePipe: DatePipe) {}
+    private datePipe: DatePipe,
+    private _notification: NotificationService) {}
 
   ngOnInit(): void {
-    this._task.getTasks().subscribe(data => {
-      this.tasks = data;
-      console.log('Tareas obtenidas:', this.tasks);
-    });
+    this.getTasks();
   }
 
   formatTimestamp(firebaseTimestamp: Timestamp): string | null {
@@ -37,6 +36,19 @@ export class AppComponent implements OnInit {
   
   newTask() {
     this.dialog.open(NewTaskComponent);
+  }
+
+  updateTask(task: any) {
+    task.status = !task.status;
+    this._task.updateTask(task.id, task).then(data => {
+      this._notification.showSuccessMessage(`${task.name} está ${(task.status) ? 'completada' : 'pendiente' }`)
+    })
+  }
+
+  getTasks() {
+    this._task.getTasks().subscribe(data => {
+      this.tasks = data;
+    });
   }
 
 }

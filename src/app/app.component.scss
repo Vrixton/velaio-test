@@ -1,14 +1,17 @@
 .example-icon {
     padding: 0 14px;
 }
+
 .example-spacer {
     flex: 1 1 auto;
 }
+
 .cont-toolbar {
     padding: 20px;
     display: flex;
     justify-content: space-between;
 }
+
 .cont-tasks {
     padding: 20px;
     display: flex;
@@ -16,9 +19,24 @@
     flex-wrap: wrap;
     .mdc-card {
         margin: 10px;
-        max-width: 440px;
+        min-width: 290px;
         .pending {
             text-decoration: line-through;
         }
+    }
+    .pending-task {
+        transition: .3s;
+        background-color: #eeeeee;
+    }
+}
+
+.cont-btn-status {
+    height: 100%;
+    position: relative;
+    margin-top: 10px;
+    .button-status {
+        width: calc(100% - 20px);
+        position: absolute;
+        bottom: 10px;
     }
 }

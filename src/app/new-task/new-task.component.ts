@@ -31,7 +31,7 @@ export class NewTaskComponent {
       this.task = this.fb.group({
         name: [null, Validators.required],
         limitDate: [null, Validators.required],
-        status: ['pending', Validators.required],
+        status: [false, Validators.required],
         personName: [null, Validators.required],
         personAge: [null, Validators.required],
         person: this.fb.array([]),
