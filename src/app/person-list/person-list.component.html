@@ -1,4 +1,4 @@
-<h4>Personas</h4>
+<h4>Personas:</h4>
 <mat-accordion *ngIf="people">
     <mat-expansion-panel hideToggle *ngFor="let person of people">
       <mat-expansion-panel-header>
@@ -6,8 +6,9 @@
           {{ person.name }} ({{ person.age }})
         </mat-panel-title>
       </mat-expansion-panel-header>
+      <p>Habilidades: </p>
       <div class="cont-skills">
-        <p *ngFor="let skill of person.skills">{{ skill.name }}</p>
+        <p class="skill-pill" *ngFor="let skill of person.skills">{{ skill.name }}</p>
       </div>
     </mat-expansion-panel>
 </mat-accordion>

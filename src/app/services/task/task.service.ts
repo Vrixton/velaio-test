@@ -22,4 +22,8 @@ export class TaskService {
     return this.angularFirestore.collection('tasks').doc(taskId).update(updatedData);
   }
 
+  getTasksByStatus(status: boolean): Observable<any[]> {
+    return this.angularFirestore.collection('tasks', ref => ref.where('status', '==', status)).valueChanges();
+  }
+
 }
