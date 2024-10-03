@@ -1,5 +1,4 @@
 <mat-toolbar color="primary">
-
   <mat-toolbar-row>
     <span>Prueba técnica básica Angular - VELAIO</span>
   </mat-toolbar-row>
@@ -20,15 +19,14 @@
       <mat-card-title [ngClass]="{'pending': task.status ==='pending'}">
         {{ task.name }} 
       </mat-card-title>
-      <mat-card-subtitle>Fecha limite: {{ task.limitDate }}</mat-card-subtitle>
+      <mat-card-subtitle>Fecha limite: {{ formatTimestamp(task.limitDate) }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure excepturi quis ut fugit magni alias consequatur ipsa deserunt recusandae labore laudantium impedit porro, hic eum provident est placeat quisquam assumenda!
+      Contenido aqui...
     </mat-card-content>
     <mat-card-actions>
       <button *ngIf="task.status ==='pending'" mat-flat-button color="primary">Mover a completadas</button>
       <button *ngIf="task.status ==='complete'" mat-flat-button color="warn">Mover a pendiente</button>
     </mat-card-actions>
   </mat-card>
-
 </section>
