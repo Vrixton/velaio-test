@@ -49,6 +49,11 @@ export class NewTaskComponent {
 
     addPerson(name: string, age: number) {
       const personArray = this.task.get('person') as FormArray;
+      const personExists = personArray.controls.some(person => person.get('name')?.value === name);
+      if (personExists) {
+        this._notification.showSuccessMessage('Esta persona ya existe');
+        return;
+      }
       personArray.push(this.fb.group({
         name: [name, Validators.required],
         age: [age, Validators.required],
@@ -56,7 +61,6 @@ export class NewTaskComponent {
       }));
       this.clearPerson();
     }
-
     clearPerson() {
       this.task.controls['personName'].setValue('');
       this.task.controls['personAge'].setValue('');
@@ -95,11 +99,11 @@ export class NewTaskComponent {
       }
     }
 
-    removePerson(index: number) {
+    removePerson(name: string, index: number) {
       const personArray = this.task.get('person') as FormArray;
       if (personArray.length > index) {
         personArray.removeAt(index);
-        this._notification.showSuccessMessage('Persona eliminada');
+        this._notification.showSuccessMessage(`${name} ha sido eliminado`);
       }
     }
 

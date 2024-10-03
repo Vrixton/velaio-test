@@ -42,7 +42,7 @@
                             <td>{{ person.age }}</td>
                             <td class="center">{{ person.skills.length }}</td>
                             <td class="center">
-                                <button color="warn" mat-icon-button aria-label="Remove button" (click)="removePerson(i)">
+                                <button color="warn" mat-icon-button aria-label="Remove button" (click)="removePerson(person.name, i)">
                                     <mat-icon>cancel</mat-icon>
                                 </button>
                             </td>
