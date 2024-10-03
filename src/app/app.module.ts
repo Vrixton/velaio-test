@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { environment } from '../environments';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -22,10 +25,13 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatChipsModule} from '@angular/material/chips';
+import { SnackBarComponent } from './snack-bar/snack-bar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    NewTaskComponent
+    NewTaskComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,10 @@ import {MatChipsModule} from '@angular/material/chips';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
-    MatChipsModule
+    MatChipsModule, 
+    SnackBarComponent,
+    provideFirebaseApp(() => initializeApp( environment.firebaseConfig )),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [],
   bootstrap: [AppComponent]

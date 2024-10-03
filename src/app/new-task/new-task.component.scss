@@ -4,6 +4,9 @@
 .d-flex {
     display: flex;
 }
+.center {
+    text-align: center;
+}
 .justify-content-space-evenly {
     justify-content: space-between;
 }
@@ -29,14 +32,19 @@
     .table-persons {
         width: calc(100% - 40px);
         margin: 20px;
+        border-collapse: collapse;
         tr {
             cursor: pointer;
-            transition: .3s;
             th {
                 text-align: left;
             }
+            td {
+                transition: .3s;
+            }
             &:hover {
-                background-color: #e3e3e3;
+                td {
+                    background-color: #e3e3e3;
+                }
             }
         }
     }

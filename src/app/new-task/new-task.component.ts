@@ -1,8 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipEditedEvent, MatChipInputEvent} from '@angular/material/chips';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
+import { COMMA, ENTER} from '@angular/cdk/keycodes';
+import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import { NotificationService } from '../services/notification/notification.service';
+import { MatDialogRef } from '@angular/material/dialog';
 export interface Skill {
   name: string;
 }
@@ -12,15 +15,20 @@ export interface Skill {
   styleUrls: ['./new-task.component.scss'],
 })
 
-
 export class NewTaskComponent {
   task: FormGroup;
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   skills: Skill[] = [];
+  durationInSeconds = 5;
 
   constructor(
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private firestore: Firestore,
+    private _notification: NotificationService,
+    public dialogRef: MatDialogRef<NewTaskComponent>
+  ) {
+
       this.task = this.fb.group({
         name: [null, Validators.required],
         limitDate: [null, Validators.required],
@@ -31,10 +39,13 @@ export class NewTaskComponent {
       });
     }
 
-    announcer = inject(LiveAnnouncer);
+    announcer = inject( LiveAnnouncer );
 
     addTask(task: any) {
-      console.log("tarea agregada -> ", task.value);
+      const tasksCollection = collection(this.firestore, 'tasks');
+      this._notification.showSuccessMessage('Tarea agregada exitosamente');
+      this.dialogRef.close();
+      return addDoc(tasksCollection, task);
     }
 
     addPerson(name: string, age: number) {
@@ -87,9 +98,9 @@ export class NewTaskComponent {
 
     removePerson(index: number) {
       const personArray = this.task.get('person') as FormArray;
-  
       if (personArray.length > index) {
         personArray.removeAt(index);
+        this._notification.showSuccessMessage('Persona eliminada');
       }
     }
 

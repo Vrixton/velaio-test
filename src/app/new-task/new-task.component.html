@@ -40,8 +40,8 @@
                         <tr *ngFor="let person of task.value.person; let i = index">
                             <td>{{ person.name }}</td>
                             <td>{{ person.age }}</td>
-                            <td>{{ person.skills.length }}</td>
-                            <td>
+                            <td class="center">{{ person.skills.length }}</td>
+                            <td class="center">
                                 <button color="warn" mat-icon-button aria-label="Remove button" (click)="removePerson(i)">
                                     <mat-icon>cancel</mat-icon>
                                 </button>
@@ -88,11 +88,13 @@
                         </mat-chip-grid>
                         <mat-hint>(min 1 habilidad)</mat-hint>
                     </mat-form-field>
-                    <button mat-flat-button color="accent" class="m-1" [disabled]="!task.value.personName || !task.value.personAge || task.value.personAge < 18 || !skills.length" (click)="addPerson(task.value.personName, task.value.personAge)">Agregar persona</button>
+                    <div class="d-flex justify-content-end">
+                        <button mat-flat-button color="accent" class="m-1" [disabled]="!task.value.personName || !task.value.personAge || task.value.personAge < 18 || !skills.length" (click)="addPerson(task.value.personName, task.value.personAge)">Agregar persona</button>
+                    </div>
             </mat-card>
         </section>
     </form>
 </div>
 <div mat-dialog-actions class="d-flex justify-content-end">
-    <button mat-flat-button color="primary" [disabled]="!task.value.name || !task.value.limitDate || !task.value.person.length" (click)="addTask(task)">Crear tarea</button>
+    <button mat-flat-button color="primary" [disabled]="!task.value.name || !task.value.limitDate || !task.value.person.length" (click)="addTask(task.value)">Crear tarea</button>
 </div>
