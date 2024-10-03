@@ -14,9 +14,9 @@ import { NotificationService } from './services/notification/notification.servic
 })
 
 export class AppComponent implements OnInit {
-  toppings = new FormControl('');
+  filterForm = new FormControl('');
   title = 'velaio-test';
-  toppingList: string[] = ['Todas', 'Completadas', 'Pendientes'];
+  filterData: any[] = ['Todas', 'Completadas', 'Pendientes'];
   tasks: any[] = [];
 
   constructor(
@@ -27,6 +27,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTasks();
+    this.filterForm.valueChanges.subscribe(value => {
+      if (value === 'Todas') {
+        this.getTasks();
+      }
+      else {
+        this.getTasksByStatus(value === 'Completadas' ? true: false);
+      }
+    });
   }
 
   formatTimestamp(firebaseTimestamp: Timestamp): string | null {
@@ -50,5 +58,10 @@ export class AppComponent implements OnInit {
       this.tasks = data;
     });
   }
-
+  
+  getTasksByStatus(status: boolean): void {
+    this._task.getTasksByStatus(status).subscribe(data => {
+      this.tasks = data; 
+    });
+  }
 }
