@@ -14,19 +14,19 @@
   <button mat-flat-button color="primary" (click)="newTask()">Agregar tarea</button>
 </section>
 <section class="cont-tasks">
-  <mat-card *ngFor="let task of tasks">
+  <mat-card *ngFor="let task of tasks" [ngClass]="{ 'pending-task': task.status }">
     <mat-card-header>
-      <mat-card-title [ngClass]="{'pending': task.status ==='pending'}">
-        {{ task.name }} 
+      <mat-card-title [ngClass]="{ 'pending': task.status }">
+        {{ task.name }}
       </mat-card-title>
       <mat-card-subtitle>Fecha limite: {{ formatTimestamp(task.limitDate) }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      Contenido aqui...
+      <app-person-list [people]="task.person"></app-person-list>
     </mat-card-content>
-    <mat-card-actions>
-      <button *ngIf="task.status ==='pending'" mat-flat-button color="primary">Mover a completadas</button>
-      <button *ngIf="task.status ==='complete'" mat-flat-button color="warn">Mover a pendiente</button>
+    <mat-card-actions class="cont-btn-status">
+      <button class="button-status" *ngIf="!task.status" mat-flat-button color="primary" (click)="updateTask(task)">Mover a completadas</button>
+      <button class="button-status" *ngIf="task.status" mat-flat-button color="warn" (click)="updateTask(task)">Mover a pendiente</button>
     </mat-card-actions>
   </mat-card>
 </section>

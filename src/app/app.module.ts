@@ -4,7 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
@@ -25,13 +28,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 import { SnackBarComponent } from './snack-bar/snack-bar.component';
+import { PersonListComponent } from './person-list/person-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewTaskComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -56,6 +61,10 @@ import { SnackBarComponent } from './snack-bar/snack-bar.component';
     MatTableModule,
     MatChipsModule, 
     SnackBarComponent,
+    PersonListComponent,
+    MatExpansionModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     provideFirebaseApp(() => initializeApp( environment.firebaseConfig )),
     provideFirestore(() => getFirestore()),
   ],
